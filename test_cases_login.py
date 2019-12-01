@@ -11,6 +11,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import Select
 
+from django.contrib.auth import authenticate
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ETIToDoList.todolist.settings")
+import django
+django.setup()
+
 def test_login_without_entering_username_or_password():
     driver = webdriver.Chrome()
     driver.maximize_window()
