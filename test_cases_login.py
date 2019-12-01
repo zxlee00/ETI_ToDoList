@@ -148,3 +148,15 @@ def test_logout():
     time.sleep(2)
     assert "You are not logged in." in driver.page_source
     driver.quit()
+
+def test_successful_login_pytest():
+    user = authenticate(username="admin", password='admin123')
+    assert user != None
+
+def test_login_with_incorrect_username_pytest():
+    user = authenticate(username="admin?", password='admin123')
+    assert user == None
+
+def test_login_with_incorrect_password_pytest():
+    user = authenticate(username="admin", password='admin123?')
+    assert user == None
