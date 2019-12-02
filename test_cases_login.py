@@ -154,14 +154,17 @@ def test_logout():
     assert "You are not logged in." in driver.page_source
     driver.quit()
 
+@pytest.mark.django_db
 def test_successful_login_pytest():
     user = authenticate(username="admin", password='admin123')
     assert user != None
 
+@pytest.mark.django_db
 def test_login_with_incorrect_username_pytest():
     user = authenticate(username="admin?", password='admin123')
     assert user == None
 
+@pytest.mark.django_db
 def test_login_with_incorrect_password_pytest():
     user = authenticate(username="admin", password='admin123?')
     assert user == None
