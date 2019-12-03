@@ -4,10 +4,10 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 
-driver = webdriver.Chrome()
-driver.maximize_window()
-
-def test_toDoNavigate():
+def test_navigation_to_todo_page():
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    
     driver.get('http://localhost:8000/accounts/login/')
     userelem = driver.find_element_by_id("id_username")
     userelem.clear()
@@ -23,7 +23,10 @@ def test_toDoNavigate():
     assert "To-Do" in driver.page_source
     driver.quit()
 
-def test_textSubmit():
+def test_adding_a_todo_item():
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    
     driver.get('http://localhost:8000/accounts/login/')
     userelem = driver.find_element_by_id("id_username")
     userelem.clear()
@@ -36,13 +39,19 @@ def test_textSubmit():
 
     time.sleep(1)
     todo = driver.find_element_by_name("content")
-    todo.send_keys("Please go to ETI")
+    todo.send_keys("Testing to-do item")
     todo.send_keys(Keys.RETURN)
 
-    assert driver.find_element_by_css_selector("input:invalid")
+    time.sleep(1)
+
+    assert driver.find_element_by_xpath("//li[contains(text(),'Testing to-do item')]")
+    
     driver.quit()
 
-def test_submitEmpty():
+def test_adding_a_todo_item_without_a_value():
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+
     driver.get('http://localhost:8000/accounts/login/')
     userelem = driver.find_element_by_id("id_username")
     userelem.clear()
@@ -55,9 +64,11 @@ def test_submitEmpty():
 
     time.sleep(1)
     todo = driver.find_element_by_name("content")
-    todo.send_keys("")
     todo.send_keys(Keys.RETURN)
 
-    assert driver.find_element_by_css_selector("input:invalid")
+    time.sleep(1)
+
+    assert todo.get_attribute("validationMessage") == "Please fill out this field."
+    
     driver.quit()
 
