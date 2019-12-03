@@ -17,8 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 
+#todo list items 
+from todo.views import todo_view, add_todo, delete_todo
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
+
+    #todo Pages
+    path('todo/', todo_view),
+    path('addTodo/', add_todo),
+    path('deleteTodo/<int:todo_id>/', delete_todo),
 ]

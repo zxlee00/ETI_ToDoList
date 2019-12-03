@@ -5,11 +5,12 @@
 {% block content %}
 	<div style="font-family: Arial; padding: 20px; text-align: center; font-size: 25px">
 		{% if user.is_authenticated %}
-			<p>You are logged in as {{ user.username }}.</p>
-			<a href="{% url 'logout' %}" style="border-radius: 6px; border: 0px; background-color: #7CC3A7; font-size: 18px; padding: 5px 10px; text-decoration: None; color: black">Log Out</a>
+            <script type="text/javascript">
+                location.replace("/todo");
+            </script>
 		{% else %}
 			<p>You are not logged in.<br />Click the link below to log in.</p>
-			<a href="{% url 'login' %}" style="border-radius: 6px; border: 0px; background-color: #7CC3A7; font-size: 18px; padding: 5px 10px; text-decoration: None; color: black">Log In</a>
+			<a href="{% url 'login' %}" style="border-radius: 6px; border: 0px; background-color: #8f2635; font-size: 18px; padding: 5px 10px; text-decoration: None; color: white">Log In</a>
 		{% endif %}
 	</div>
 {% endblock %}
