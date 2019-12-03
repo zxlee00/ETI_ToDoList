@@ -131,7 +131,7 @@ def testing_archiving_a_todo_item():
 
     time.sleep(1)
     
-    todoItemToArchive = driver.find_element_by_xpath("//li[contains(text(),'Item to be archived')]") #delete the todo item from the add todo item test case
+    todoItemToArchive = driver.find_element_by_xpath("//li[contains(text(),'Item to be archived')]")
     items = driver.find_elements_by_tag_name("li")
     count = 0
     for element in items:
