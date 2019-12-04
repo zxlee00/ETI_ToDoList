@@ -4,7 +4,7 @@
 
 {% block content %}
 <div style="padding: 10px; font-family: Arial; text-align: center">
-	<h1 style="color: blue; font-size: 50px">Login</h1>
+	<h1 style="color: #bb9da2; font-size: 50px">Login</h1>
 	<form method="post" style="font-size: 20px">	
 		{% csrf_token %}
 		<p>
@@ -15,7 +15,7 @@
 			{{ form.password.label_tag }}
 			{{ form.password }}
 		</p>
-		<button type="submit" style="border-radius: 6px; border: 0px; background-color: #7CC3A7; font-size: 18px; padding: 5px 10px">Log In</button>
+		<button type="submit" style="border-radius: 6px; border: 0px; background-color: #8f2635; font-size: 18px; padding: 5px 10px; color: white">Log In</button>
 	</form>
 	{% if form.errors %}
 		<p style="color: red">The username or password you have entered is incorrect, please try again.</p>

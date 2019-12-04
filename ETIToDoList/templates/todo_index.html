@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html>
+    <style>
+        .topnav {
+          overflow: hidden;
+          background-color: #bb9da2;
+        }
+
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+
+        .topnav a.active {
+          background-color: #8f2635;
+          color: white;
+        }
+    
+        input[type=text], select {
+            width: 100%;
+            font-family:'Muli';
+            font-size: 16px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .button {
+          width: 100%;
+          background-color: #bb9da2;
+          font-family:'Muli';
+          font-size: 12px;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        .button:hover {
+          background-color: #b0a3a6;
+        }
+        li{
+            font-family:'Muli';
+            font-size: 16px;
+        }
+        
+    </style>
+
+
+<body>
+    <div class="topnav" style="font-family: Arial">
+      <a class="active" href="/todo/">To-Do List</a>
+      <a href="/todoHistory/">To-Do List History</a>
+    </div>
+<br>
+<hr style="color:#bb9da2">
+<h1 align="center" style="font-family:FuturateeMed; color: #8f2635">Our Todo List</h1>
+<hr style="color:#bb9da2">
+
+<br>
+
+<div>
+<form action="/addTodo/" method="post">{% csrf_token %}
+  <input type="text" name="content" required />
+  <input class="button" type="submit" value="Add to List"/>
+</form>
+</div>
+<ul text-align="center">
+  {% for todo_item in all_items %}
+  
+    <li>{{ todo_item.content }}
+<br>
+      <form action="/deleteTodo/{{todo_item.id}}/"
+            style="display: inline;"
+            method="post">{% csrf_token %}
+        <input type="submit" value="Delete"/>
+        <button onclick="hideElement()"> Archive to History </button>
+        
+      </form>
+      <hr style="height:1px">
+    </li>
+  {% endfor %}
+</ul>
+
+<div style="padding:10px">
+    <a href="{% url 'logout' %}" style="border-radius: 6px; border: 0px; background-color: #8f2635; font-size: 18px; padding: 5px 10px; text-decoration: None; color: white; font-family: Arial;">Log Out</a>
+</div>
+
+<script type="text/javascript">
+
+      function hideElement() {
+          element = document.querySelector('.container');
+          element.style.visibility = 'hidden';
+      }
+  </script>
+</body>
+</html>
+
