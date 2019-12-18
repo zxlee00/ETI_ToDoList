@@ -9,7 +9,8 @@ def todo_view(request):
         {'all_items': all_todo_items})
 
 def add_todo(request):
-    new_item = TodoItem(content = request.POST['content'])
+    current_user_id = request.user.id
+    new_item = TodoItem(content = request.POST['content'], userID = current_user_id)
     new_item.save()
     return HttpResponseRedirect('/todo/')
 
