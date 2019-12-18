@@ -100,12 +100,9 @@ def test_deleting_a_todo_item():
     for element in items:
         if element == todoItemToDelete:
             indexToDelete = count
-            print(indexToDelete)
         count += 1
-        print(count)
 
     delete_btns = driver.find_elements_by_xpath("//a[contains(text(),'DELETE')]")
-    print(delete_btns.count)
     delete_btns[indexToDelete].click()
 
     time.sleep(1)
