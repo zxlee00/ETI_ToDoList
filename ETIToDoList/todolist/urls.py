@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView
 
 #todo list items 
-from todo.views import todo_view, add_todo, delete_todo
+from todo.views import todo_view, add_todo, delete_todo, todo_completed, todo_pending
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +28,7 @@ urlpatterns = [
     #todo Pages
     path('todo/', todo_view),
     path('addTodo/', add_todo),
-    path('deleteTodo/<int:todo_id>/', delete_todo),
+    path('deleteTodo/<int:todo_id>/', delete_todo, name="delete_todo"),
+    path('todo_completed/<int:todo_id>', todo_completed, name="todo_completed"),
+    path('todo_pending/<int:todo_id>', todo_pending, name="todo_pending"),
 ]
