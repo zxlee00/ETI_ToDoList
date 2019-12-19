@@ -8,6 +8,11 @@ def todo_view(request):
     return render(request, 'todo_index.html',
         {'all_items': all_todo_items})
 
+def todoHistory_index(request):
+    all_todo_items = TodoItem.objects.all()
+    return render(request, 'todoHistory.html',
+                  {'all_items': all_todo_items})
+
 def add_todo(request):
     current_user_id = request.user.id
     new_item = TodoItem(content = request.POST['content'], userID = current_user_id)
