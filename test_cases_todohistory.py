@@ -38,25 +38,27 @@ def test_successful_archive_into_todo_history_page():
 
     time.sleep(1)
     todo = driver.find_element_by_name("content")
-    todo.send_keys("Item to be archived")
+    todo.send_keys("Item to be completed")
     todo.send_keys(Keys.RETURN)
 
     time.sleep(1)
     
-    todoItemToArchive = driver.find_element_by_xpath("//li[contains(text(),'Item to be archived')]")
+    todoItemToComplete = driver.find_element_by_xpath("//li[contains(text(),'Item to be completed')]")
     items = driver.find_elements_by_tag_name("li")
     count = 0
     for element in items:
-        if element == todoItemToArchive:
-            indexToArchive = count
+        if element == todoItemToComplete:
+            indexToComplete = count
         count += 1
 
-    archive_btns = driver.find_elements_by_xpath("//button[contains(text(),' Archive to History ')]")
-    archive_btns[indexToArchive].click()
+    complete_btns = driver.find_elements_by_xpath("//a[contains(text(),'COMPLETE')]")
+    complete_btns[indexToComplete].click()
 
     time.sleep(1)
 
     driver.find_element_by_xpath('//a[@href="'+"/todoHistory/"+'"]').click()
+
+    time.sleep(1)
 
     assert "Item to be archived" in driver.page_source
 
@@ -91,12 +93,14 @@ def test_deleted_todo_item_is_showing_in_todo_history_page():
             indexToDelete = count
         count += 1
 
-    delete_btns = driver.find_elements_by_xpath("//input[@value='Delete']")
+    delete_btns = driver.find_elements_by_xpath("//a[contains(text(),'DELETE')]")
     delete_btns[indexToDelete].click()
 
     time.sleep(1)
 
     driver.find_element_by_xpath('//a[@href="'+"/todoHistory/"+'"]').click()
+
+    time.sleep(1)
 
     assert "Item to be deleted" in driver.page_source
 
