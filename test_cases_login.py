@@ -1,4 +1,4 @@
-import os
+import os, sys
 import pytest
 import time
 
@@ -12,6 +12,9 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import Select
 
 from django.contrib.auth import authenticate
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'ETIToDoList.todolist.settings'
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ETIToDoList.todolist.settings")
 import django
 django.setup()
