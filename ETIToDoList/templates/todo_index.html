@@ -57,10 +57,21 @@
             font-family:'Muli';
             font-size: 16px;
         }
-        
+
+       /* #myList {
+        width: 100%;
+        padding: 50px 0;
+        margin-top: 20px;
+        }*/
+        #statusHide{
+            display: none;
+        }
+        #statusShow{
+            visibility: visible;
+        }
     </style>
 
-
+{% if user.is_authenticated %}
 <body>
     <div class="topnav" style="font-family: Arial">
       <a class="active" href="/todo/">To-Do List</a>
@@ -79,34 +90,50 @@
   <input class="button" type="submit" value="Add to List"/>
 </form>
 </div>
-<ul text-align="center">
-  {% for todo_item in all_items %}
+<ul>
+
+        {% for todo_item in all_items %}
   
-    <li>{{ todo_item.content }}
-<br>
-      <form action="/deleteTodo/{{todo_item.id}}/"
-            style="display: inline;"
-            method="post">{% csrf_token %}
-        <input type="submit" value="Delete"/>
-        <button onclick="hideElement()"> Archive to History </button>
-        
-      </form>
-      <hr style="height:1px">
-    </li>
-  {% endfor %}
-</ul>
+        {% if todo_item.completed == False %}
 
-<div style="padding:10px">
-    <a href="{% url 'logout' %}" style="border-radius: 6px; border: 0px; background-color: #8f2635; font-size: 18px; padding: 5px 10px; text-decoration: None; color: white; font-family: Arial;">Log Out</a>
-</div>
+    <div id="statusShow">
+        <li>{{ todo_item.content }} ({{todo_item.created_at|date:'d-M-Y, H:i'}})
+            <br>
+            <br>
+            <button><a href="{% url 'todo_completed' todo_item.id %}" class="btn btn-dark btn-sm" role="button"><i class="far fa-circle"></i>COMPLETE</a></button>
+            
+            <button><a href="{% url 'todo_completed' todo_item.id %}" class="btn btn-dark btn-sm" role="button"><i class="far fa-circle"></i>DELETE</a></button>
+        </li>
+        <br>
+   
+    </div>
+        <hr style="height:1px">
+    {% endif %}
+    {% endfor %}
+            
+    </ul>
 
-<script type="text/javascript">
+    <div style="padding:10px">
+        <a href="{% url 'logout' %}" style="border-radius: 6px; border: 0px; background-color: #8f2635; font-size: 18px; padding: 5px 10px; text-decoration: None; color: white; font-family: Arial;">Log Out</a>
+    </div>
 
-      function hideElement() {
-          element = document.querySelector('.container');
-          element.style.visibility = 'hidden';
-      }
-  </script>
+<script>
+/*function myFunction() {
+  var x = document.getElementById("myList");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}*/
+</script>
 </body>
+{% else %}
+<div style="font-family: Arial; padding: 20px; text-align: center; font-size: 25px">
+    <p>You are not logged in.<br />Click the link below to log in.</p>
+    <a href="{% url 'login' %}" style="border-radius: 6px; border: 0px; background-color: #8f2635; font-size: 18px; padding: 5px 10px; text-decoration: None; color: white">Log In</a>
+</div>
+{% endif %}
+
 </html>
 

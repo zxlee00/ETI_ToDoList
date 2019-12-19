@@ -16,6 +16,11 @@
 			{{ form.password }}
 		</p>
 		<button type="submit" style="border-radius: 6px; border: 0px; background-color: #8f2635; font-size: 18px; padding: 5px 10px; color: white">Log In</button>
+		<button style="border-radius: 6px; border: 0px; background-color: #8f2635; padding: 5px 10px;">
+			<a style="font-size: 18px; color: white; text-decoration:none" href="../signup">
+				Register
+			</a>
+		</button>
 	</form>
 	{% if form.errors %}
 		<p style="color: red">The username or password you have entered is incorrect, please try again.</p>
