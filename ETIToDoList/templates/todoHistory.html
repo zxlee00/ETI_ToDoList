@@ -38,6 +38,7 @@
 
     </style>
 
+{% if user.is_authenticated %}
 <body>
     <div class="topnav" style="font-family: Arial">
       <a href="/todo/">To-Do List</a>
@@ -68,5 +69,11 @@ Our Todo History</h1>
         <a href="{% url 'logout' %}" style="border-radius: 6px; border: 0px; background-color: #8f2635; font-size: 18px; padding: 5px 10px; text-decoration: None; color: white; font-family: Arial;">Log Out</a>
     </div>
 </body>
+{% else %}
+<div style="font-family: Arial; padding: 20px; text-align: center; font-size: 25px">
+    <p>You are not logged in.<br />Click the link below to log in.</p>
+    <a href="{% url 'login' %}" style="border-radius: 6px; border: 0px; background-color: #8f2635; font-size: 18px; padding: 5px 10px; text-decoration: None; color: white">Log In</a>
+</div>
+{% endif %}
 
 </html>
