@@ -60,7 +60,7 @@ def test_successful_archive_into_todo_history_page():
 
     time.sleep(1)
 
-    assert "Item to be archived" in driver.page_source
+    assert "Item to be completed" in driver.page_source
 
     driver.quit()
 
