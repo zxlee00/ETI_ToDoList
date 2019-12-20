@@ -19,6 +19,9 @@ def test_navigation_to_todohistory_page():
     pswdelem.send_keys(Keys.RETURN)
 
     driver.find_element_by_xpath('//a[@href="'+"/todoHistory/"+'"]').click()
+
+    time.sleep(1)
+    
     assert "To-Do List History" in driver.page_source
     driver.quit()
 
@@ -103,5 +106,61 @@ def test_deleted_todo_item_is_showing_in_todo_history_page():
     time.sleep(1)
 
     assert "Item to be deleted" in driver.page_source
+
+    driver.quit()
+
+def test_displaying_todo_history_by_user():
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+
+    driver.get('http://localhost:8000/accounts/login/')
+    userelem = driver.find_element_by_id("id_username")
+    userelem.clear()
+    userelem.send_keys("admin")
+    userelem.send_keys(Keys.RETURN)
+    pswdelem = driver.find_element_by_id("id_password")
+    pswdelem.clear()
+    pswdelem.send_keys("admin123")
+    pswdelem.send_keys(Keys.RETURN)
+
+    time.sleep(1)
+    todo = driver.find_element_by_name("content")
+    todo.send_keys("Test to-do history item by user")
+    todo.send_keys(Keys.RETURN)
+
+    time.sleep(1)
+
+    driver.find_element_by_xpath('//a[@href="'+"/todoHistory/"+'"]').click()
+
+    time.sleep(1)
+    
+    assert "Test to-do history item by user" in driver.page_source
+
+    logoutBtn = driver.find_element_by_xpath("//a[contains(text(), 'Log Out')]")
+    logoutBtn.click()
+
+    time.sleep(2)
+
+    loginBtn = driver.find_element_by_xpath("//a[contains(text(), 'Log In')]")
+    loginBtn.click()
+
+    time.sleep(2)
+
+    userelem = driver.find_element_by_id("id_username")
+    userelem.clear()
+    userelem.send_keys("zxnlee")
+    userelem.send_keys(Keys.RETURN)
+    pswdelem = driver.find_element_by_id("id_password")
+    pswdelem.clear()
+    pswdelem.send_keys("P@ssw0rd")
+    pswdelem.send_keys(Keys.RETURN)
+
+    time.sleep(2)
+
+    driver.find_element_by_xpath('//a[@href="'+"/todoHistory/"+'"]').click()
+
+    time.sleep(1)
+
+    assert "Test to-do history item by user" not in driver.page_source
 
     driver.quit()
