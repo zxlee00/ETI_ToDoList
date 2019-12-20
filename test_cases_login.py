@@ -119,7 +119,7 @@ def test_successful_login():
     button = driver.find_element_by_xpath("//button")
     button.click()
     time.sleep(2)
-    assert "You are logged in as " + username + "." in driver.page_source
+    assert "Our Todo List" in driver.page_source
     driver.quit()
     
 def test_navigation_to_login_page():
@@ -151,7 +151,7 @@ def test_logout():
     button = driver.find_element_by_xpath("//button")
     button.click()
     
-    logout = driver.find_element_by_tag_name('a')
+    logout = driver.find_element_by_xpath("//a[contains(text(), 'Log Out')]")
     logout.click()
     time.sleep(2)
     assert "You are not logged in." in driver.page_source
