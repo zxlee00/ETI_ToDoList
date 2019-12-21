@@ -9,7 +9,8 @@ def todo_view(request):
         {'all_items': all_todo_items})
 
 def todoHistory_index(request):
-    all_todo_items = TodoItem.objects.all()
+    current_user_id = request.user.id
+    all_todo_items = TodoItem.objects.raw('SELECT * from todo_todoitem WHERE userID = ' + str(current_user_id))
     return render(request, 'todoHistory.html',
                   {'all_items': all_todo_items})
 
